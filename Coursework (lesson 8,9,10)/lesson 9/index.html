@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue Product Details</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="nav-bar"></div>
+
+      
+      <div class="cart">
+        <p>Cart ({{ cart }})</p>
+      </div>
+
+      
+      <product-display 
+        :premium="premium"
+        @add-to-cart="updateCart">
+      </product-display>
+    </div>
+
+    <!-- Component scripts -->
+    <script src="./components/ProductDetails.js"></script>
+    <script src="./components/ProductDisplay.js"></script>
+
+    <!-- Main Vue app -->
+    <script src="./main.js"></script>
+  </body>
+</html>
