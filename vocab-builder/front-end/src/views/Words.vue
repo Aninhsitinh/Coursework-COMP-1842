@@ -1,0 +1,63 @@
+<template>
+  <div>
+    <h1>Words</h1>
+    <table id="words" class="ui celled compact table">
+      <thead>
+        <tr>
+          <th>English</th>
+          <th>German</th>
+          <th>Vietnamese</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tr v-for="(word, i) in words" :key="word._id || i">
+        <td>{{ word.english }}</td>
+        <td>{{ word.german }}</td>
+        <td>{{ word.vietnamese }}</td>
+        
+        <td width="75" class="center aligned">
+          <router-link :to="{ name: 'show', params: { id: word._id }}">
+            Show
+          </router-link>
+        </td>
+        
+        <td width="75" class="center aligned">
+          <router-link :to="{ name: 'edit', params: { id: word._id }}">
+            Edit
+          </router-link>
+        </td>
+        
+        <td width="75" class="center aligned">
+          <a @click="deleteWord(word._id)" class="ui red basic button">
+            Destroy
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</template>
+
+<script>
+import { api } from '../helpers/helpers';
+
+export default {
+  name: 'words',
+  data() {
+    return {
+      words: []
+    };
+  },
+  async mounted() {
+    this.words = await api.getWords();
+  },
+  methods: {
+    async deleteWord(id) {
+      if (confirm('Are you sure you want to delete this word?')) {
+        await api.deleteWord(id);
+        this.words = await api.getWords();
+        
+      }
+    }
+  }
+};
+</script>
